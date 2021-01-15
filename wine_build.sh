@@ -6,7 +6,7 @@ if [ -z $1 ]; then
 fi
 
 # The directory where wine compiles
-WORKDIR="/home/rinaldus/Мастерская/wine"
+WORKDIR="/tmp/wine"
 # Number of CPU cores +1 (e.g, if you have 8 cores CPU, you have to set -j9)
 MAKEOPTS="-j9"
 # You can change wine build flags if you need
@@ -15,7 +15,12 @@ BUILD_FLAGS="--with-x --without-gstreamer"
 #do not modify these variables
 WINE_NAME="wine-$1"
 ARCHIVE_NAME="wine-$1.tar.xz"
-BRANCH_VERSION="`echo $1 | awk 'BEGIN {FS="."}{print $1".x"}' | awk 'BEGIN {FS="-"}{print $1}'`"
+# make script compatible with stable versions of Wine
+if [[ "`echo -n $1 | tail -c 1`" == "0" ]]; then
+    BRANCH_VERSION="`echo $1 | awk 'BEGIN {FS="."}{print $1".0"}' | awk 'BEGIN {FS="-"}{print $1}'`"
+else
+    BRANCH_VERSION="`echo $1 | awk 'BEGIN {FS="."}{print $1".x"}' | awk 'BEGIN {FS="-"}{print $1}'`"
+fi
 SRC_URL="https://dl.winehq.org/wine/source/$BRANCH_VERSION/$ARCHIVE_NAME"
 
 # Delete all necessary directories if they are already exist
