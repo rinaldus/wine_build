@@ -1,3 +1,6 @@
+# Migration
+This repository is now read only, I won't update it anymore. Actual repository is here: https://git.rinaldus.ru/Rinaldus/wine_build
+
 You can compile almost any* version of vanilla wine or wine-staging.
 # Instructions
 1. Clone this repository to any directory. Open `wine_build.sh` in text editor and change `WORKDIR` and `MAKEOPTS` variables.
